@@ -2,7 +2,7 @@
 
 ### [1] 오늘 날짜 / 이름 / 팀명
 
-- 날짜: 2026/02/05
+- 날짜: 2026/02/04
 - 이름: 고대권
 - 팀명: 3팀
 
@@ -39,7 +39,57 @@ Project Management
 📌 간단한 근거:
 
 ```
-징
+기존 1안 (CP -> 받고 적은거 증강 -> Train) 삭제.
+한데 묶어서 다시 증강 했을 때, 경계선이 두드러지는 문제 
+
+Data 구성.
+1 전체에 대한 일반 증강 + 원본  [회전, scale, 밝기/대비, 블러]
+2 희귀 case 일부만 일반 증강     [차등 갯수 증강(적은 객체일 수록 多 생성, 적용 증강은 위와 같음)]
+3 희귀 case Copy Paste.            [30개]
+
+...셋다 Concat할 지, 혹은 이 중 2개만 채택 할 지 아이디어 회의 진행.
+
+2+3 (내 의견) or 1+2+3 적용 하기로.
+
+ Code_it-Basic-Project/
+├─ Data/                            # Local 에서만 시행
+│  ├─ train_images/                       # 원본 Train image
+│  ├─ test_images/                        # 원본 Test image
+│  ├─ train_annotations/                 # 원본 
+│  ├─ yolo_dataset_pill1/                # 1 전체에 대한 일반 증강 + 원본,  .yaml 변환
+│  │   ├─ images/
+│  │   │  ├─ train/
+│  │   │  └─ val/
+│  │   └─ labels/
+│  │      ├─ train/
+│  │      └─ val/
+│  ├─ yolo_dataset_pill2/               # 2 희귀 case 일부만 일반 증강   
+│  │    ├─ images/
+│  │    │  ├─ train/
+│  │    │  └─ val/
+│  │    └─ labels/
+│  │       ├─ train/
+│  │       └─ val/
+│  ├─ yolo_dataset_pill3/
+│  │    ├─ images/
+│  │    │  ├─ train/
+│  │    │  └─ val/
+│  │    └─ labels/
+│  │        ├─ train/
+│  │        └─ val/
+│  └─ yolo_dataset_pill4/             # 사실상 여기다 갖다 쓸 거임
+│	├─ train/                           # train 원본 + pill1 + pill2 + pill3
+│	├─ val/                             # val 원본
+│	└─ test/                            # test 원본
+├─ cache/
+├─ Dataset/
+│  └─ Dataset_load.py
+├─ Model/
+│  ├─ yolo11n.pt 
+│  ├─ yolo11s.pt  
+│  ├─ yolo11m.pt  
+│  └─ yolo11l.pt  
+└─ .gitignore
 
 ```
 
@@ -53,7 +103,8 @@ Project Management
 ✍️ 답변:
 
 ```
-
+[3]에서 언급한 내용들에 대해, 2가지 안에 대해 각각 Train 시행해보고 결과 확인 해 볼 예정. 
+더 좋은 성능 check > 또 드러나는 장점이 있는가..?는 좀 고민 
 
 ```
 
@@ -67,7 +118,9 @@ Project Management
 ✍️ 답변:
 
 ```
+이 당시 Data의 누락이나 중복의 문제 등 깔끔하지 않은 데이터 구성이 있었어서, 이를 확인 후 새로 만들거나 수정 하는 과정 수행하였다.
 
+그러나, 이에 대해 작업이 딜레이 되어 예상 시간보다 작업이 딜레이 되었음.
 
 ```
 
@@ -81,7 +134,7 @@ Project Management
 ✍️ 답변:
 
 ```
-통일이 잘 안되어있었어서, 이에 대한 문제 해결 필요
+작업의 획일화가 잘 안되어있었어서, 이에 대한 문제 해결 필요. 다음 날 부터 잘 적용할 수 있도록 신경써서 작업
 
 ....
 
